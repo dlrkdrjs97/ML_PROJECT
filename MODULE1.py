@@ -4,6 +4,7 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import matplotlib as mplt
 import matplotlib.pyplot as plt
 import tensorflow as tf
+import joblib
 from sklearn.preprocessing import normalize
 
 from sklearn.model_selection import train_test_split
@@ -31,15 +32,20 @@ class XGB :
         self.reg_lambda = 40
         self.reg_alpha = 40
 
-    def entire_process(self):
+    def entire_training_process(self):
         self.preprocess_data()
         self.get_train_data()
         self.training_data()
+        self.save_module()
 
-    def read_data(self, train_data, test_data):
+    def entire_test_process(self, test_data):
+        self.test_data = test_data
+        self.retrieve_module()
+        self._prediction()
+
+    def read_data(self, train_data):
         print("I AM READING DATA !")
         self.train_data = train_data
-        self.test_data = test_data
         print("DONE !")
 
     def preprocess_data(self):
@@ -63,6 +69,13 @@ class XGB :
         self.model.fit(self.X_train,self.y_train)
         print("DONE !")
 
+
+    def save_module(self):
+        joblib.dump(self.model, "module1.txt")
+
+    def retrieve_module(self):
+        self.model = joblib.load("module1.txt")
+
     def figure_out_training_data(self):
         print("I Am FIGURING OUT DATA !")
         self.X_train_prediction = self.model.predict_proba(self.X_train)[:,1]
@@ -73,11 +86,8 @@ class XGB :
     def _prediction(self):
         print("I AM PREDICTING DATA !")
         self.Y_test = self.test_data[self.features]
-        print("H")
         self.results = self.test_data[["SK_ID_CURR"]]
-        print("HH") 
         self.results["TARGET"] = self.model.predict_proba(self.Y_test)[:,1]
-        print("HHH")
         self.results.to_csv("results_from_modeul1.csv",index=False,columns=self.results.columns)
         
    
