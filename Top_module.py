@@ -102,7 +102,8 @@ f.close()
 pd = PREDICTION.PREDICT(IN, label)
 pd.train()
 IN = np.column_stack((pu1, pu2, pu3, pu4, pu5))
-result = pd.predict(IN)
+result = np.mean(IN, axis=1)
+#result = pd.predict(IN)
 #print(result[:10])
 
 ## Storing
