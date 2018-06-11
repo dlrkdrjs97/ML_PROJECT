@@ -8,11 +8,12 @@ import MODULE2
 import MODULE3
 import MODULE4
 import MODULE5
+import PREDICTION
 
 ## READ DATA SET
 df = pd.read_csv("application_train.csv")
 df_test = pd.read_csv("application_test.csv")
-'''
+
 ## MODULE # 1
 m1 = MODULE1.XGB()
 m1.read_data(df)
@@ -63,7 +64,10 @@ print(type(po5))
 print("Train AUC %.4f"%acc_train)
 print("Test AUC %.4f"%acc_test)
 
-'''
+
 label = df['TARGET']
 label = list(label)
-print(type(label))
+print(po1[:10])
+print(label[:10])
+
+#pd = PREDICTION.PREDICT(po1, po2, po3, po4, po5, label)
