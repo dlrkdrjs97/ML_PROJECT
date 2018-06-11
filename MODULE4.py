@@ -20,18 +20,18 @@ np.set_printoptions(threshold=np.nan)
 
 class XGB :
     def __init__(self):
-        self.test_size = 0.2
-        self.random_state = 42
-        self.max_depth = 6
-        self.learning_rate = 0.1
-        self.n_estimators = 100
-        self.n_jobs = 16
+        self.test_size = 0.22
+        self.random_state = 50
+        self.max_depth = 7
+        self.learning_rate = 1e-1
+        self.n_estimators = 180
+        self.n_jobs = 22
         self.scale_pos_weight = 4
         self.missing = np.nan
-        self.gamma = 16
+        self.gamma = 19
         self.eval_metric = "auc"
-        self.reg_lambda = 40
-        self.reg_alpha = 40
+        self.reg_lambda = 45
+        self.reg_alpha = 45
 
     def entire_training_process(self):
         self.preprocess_data_for_trainset()
@@ -53,7 +53,7 @@ class XGB :
 
     def preprocess_data_for_testset(self):
         print("I AM PREPROCESSING DATA !")
-        with open ('features_module1.txt', 'rb') as fp:
+        with open ('features_module4.txt', 'rb') as fp:
             self.features = pickle.load(fp)
         print(type(self.features))
         print("DONE !") 
@@ -64,7 +64,7 @@ class XGB :
         self.dtypes = self.dtypes[self.dtypes!='object']
         self.features = list(set(self.dtypes.index)-set(['TARGET']))
         print(self.features)
-        with open('features_module1.txt', 'wb') as fp:
+        with open('features_module4.txt', 'wb') as fp:
             pickle.dump(self.features, fp)
         print("DONE !")
         # Do nothing here
@@ -85,12 +85,12 @@ class XGB :
 
     def save_module(self):
         print("I Am SAVING MODEL !")
-        pickle.dump(self.model, open("module1.dat", "wb"))
+        pickle.dump(self.model, open("module4.dat", "wb"))
         print("DONE !")
 
     def retrieve_module(self):
         print("I Am RETRIEVING MODEL !")
-        self.model = pickle.load(open("module1.dat", "rb"))
+        self.model = pickle.load(open("module4.dat", "rb"))
         print("DONE !")
 
     def figure_out_training_data(self):
@@ -105,7 +105,7 @@ class XGB :
         self.Y_test = self.test_data[self.features]
         self.results = self.test_data[["SK_ID_CURR"]]
         self.results["TARGET"] = self.model.predict_proba(self.Y_test)[:,1]
-        self.results.to_csv("results_from_modeul1.csv",index=False,columns=self.results.columns)
+        self.results.to_csv("results_from_modeul4.csv",index=False,columns=self.results.columns)
         print("DONE !")
         
    
