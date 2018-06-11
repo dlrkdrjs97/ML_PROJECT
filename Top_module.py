@@ -90,9 +90,14 @@ po5 = po5.reshape(-1,1)
 label = label.reshape(-1,1)
 
 IN = np.column_stack((po1, po2, po3, po4, po5))
-IN.to_csv("xx.csv",index=False,columns=IN.columns)
-label.to_csv("yy.csv", index = False, columns = label.columns)
-
+f = open("xx.txt", 'w')
+for val in IN:
+    f.write(str(val))
+f.close()
+f = open("yy.txt", 'w')
+for val in label:
+    f.write(str(val))
+f.close()
 #print(IN[:10])
 pd = PREDICTION.PREDICT(IN, label)
 pd.train()
