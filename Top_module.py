@@ -23,7 +23,7 @@ po1 = m1.predict_out()
 print(type(po1))
 print("Train AUC %.4f"%acc_train)
 print("Test AUC %.4f"%acc_test)
-
+'''
 ## MODULE # 1
 m2 = MODULE2.XGB()
 m2.read_data(df)
@@ -63,7 +63,7 @@ po5 = m5.predict_out()
 print(type(po5))
 print("Train AUC %.4f"%acc_train)
 print("Test AUC %.4f"%acc_test)
-
+'''
 
 label = df['TARGET']
 label = list(label)
