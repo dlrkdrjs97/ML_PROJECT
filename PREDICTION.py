@@ -60,8 +60,8 @@ class PREDICT():
         self.b = self.bias_variable([1])
         out = tf.sigmoid(tf.matmul(input_layer, self.W)+self.b)
 
-        loss = -tf.reduce_mean(target*tf.log(out))
-        optimizer = tf.train.AdamOptimizer(0.1)
+        loss = tf.reduce_mean(tf.square(target-out))#-tf.reduce_mean(target*tf.log(out))
+        optimizer = tf.train.AdamOptimizer(1e-1)
         train = optimizer.minimize(loss)
         self.sess = tf.Session()
         self.sess.run(tf.global_variables_initializer())
