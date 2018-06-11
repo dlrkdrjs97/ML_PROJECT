@@ -1,5 +1,6 @@
 # EXTERN MODULE IMPORT
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import numpy as np
 
 
 ## MODULE IMPORT
@@ -23,7 +24,7 @@ po1 = m1.predict_out()
 print(type(po1))
 print("Train AUC %.4f"%acc_train)
 print("Test AUC %.4f"%acc_test)
-'''
+
 ## MODULE # 1
 m2 = MODULE2.XGB()
 m2.read_data(df)
@@ -63,11 +64,17 @@ po5 = m5.predict_out()
 print(type(po5))
 print("Train AUC %.4f"%acc_train)
 print("Test AUC %.4f"%acc_test)
-'''
+
 
 label = df['TARGET']
-label = list(label)
-print(po1[:10])
-print(label[:10])
+label = np.array(list(label))
 
-#pd = PREDICTION.PREDICT(po1, po2, po3, po4, po5, label)
+po1 = po1.reshape(-1,1)
+po2 = po2.reshape(-1,1)
+po3 = po3.reshape(-1,1)
+po4 = po4.reshape(-1,1)
+po5 = po5.reshape(-1,1)
+label = label.reshape(-1,1)
+
+pd = PREDICTION.PREDICT(po1, po2, po3, po4, po5, label)
+pd.train()

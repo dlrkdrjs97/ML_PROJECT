@@ -75,5 +75,4 @@ class PREDICT():
  
         for epoch in range(100):
             _, loss_temp = self.sess.run([train, loss], feed_dict = {input1: self.IN1,input2: self.IN2, input3:self.IN3, input4:self.IN4, input5:self.IN5, target:self.label})
-            if  epoch % 10 == 0:
-                print("Loss : ", loss_temp)
+            print("epoch : {} Loss : ".format(epoch, loss_temp))
