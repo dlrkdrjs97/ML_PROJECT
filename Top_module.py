@@ -65,4 +65,5 @@ print("Test AUC %.4f"%acc_test)
 
 '''
 label = df['TARGET']
+label = list(label)
 print(type(label))
