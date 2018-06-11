@@ -52,12 +52,12 @@ class PREDICT():
         Layer_out = tf.matmul(act_L2_drop, self.W3)+self.b3
         out = tf.sigmoid(Layer_out)
 
-        loss = -tf.reduce_sum(target*tf.log(out))
+        loss = -tf.reduce_mean(target*tf.log(out))
         optimizer = tf.train.AdamOptimizer(0.1)
         train = optimizer.minimize(loss)
         self.sess = tf.Session()
         self.sess.run(tf.global_variables_initializer())
  
-        for epoch in range(10000):
+        for epoch in range(100):
             _, loss_temp = self.sess.run([train, loss], feed_dict = {input_layer: self.IN, target: self.label})
             print("epoch : {} Loss : {}".format(epoch, loss_temp))
