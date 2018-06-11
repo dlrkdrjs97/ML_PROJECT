@@ -1,12 +1,8 @@
 import tensorflow as tf
 
 class PREDICT():
-    def __init__(self,IN1,IN2,IN3,IN4,IN5,label):
-        self.IN1 = IN1
-        self.IN2 = IN2
-        self.IN3 = IN3
-        self.IN4 = IN4
-        self.IN5 = IN5
+    def __init__(self,IN, label):
+        self.IN = IN
         self.label = label
 
 
@@ -25,12 +21,8 @@ class PREDICT():
    
 
     def predict(self, IN1,IN2,IN3,IN4,IN5):
-        input1 = tf.placeholder(tf.float32,[None, ])
-        input2 = tf.placeholder(tf.float32,[None, ])
-        input3 = tf.placeholder(tf.float32,[None, ])
-        input4 = tf.placeholder(tf.float32,[None, ])
-        input5 = tf.placeholder(tf.float32,[None, ])
-        train_data =tf.stack([input1,input2,input3, input4,input5],axis=-1,name = 'stack')
+        input = tf.placeholder(tf.float32,[None, 5])
+        
         
         Layer1 = tf.matmul(train_data, self.W1)+self.b1
         act_L1 = tf.nn.relu(Layer1)

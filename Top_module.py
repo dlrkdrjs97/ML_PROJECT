@@ -76,5 +76,7 @@ po4 = po4.reshape(-1,1)
 po5 = po5.reshape(-1,1)
 label = label.reshape(-1,1)
 '''
-pd = PREDICTION.PREDICT(po1, po2, po3, po4, po5, label)
+IN = np.column_stack((po1, po2, po3, po4, po5))
+print(IN[:10])
+pd = PREDICTION.PREDICT(IN, label)
 pd.train()
