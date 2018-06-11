@@ -59,5 +59,5 @@ class PREDICT():
         self.sess.run(tf.global_variables_initializer())
  
         for epoch in range(100):
-            _, loss_temp = self.sess.run([train, loss], feed_dict = {input_layer: IN, target: self.label})
+            _, loss_temp = self.sess.run([train, loss], feed_dict = {input_layer: self.IN, target: self.label})
             print("epoch : {} Loss : ".format(epoch, loss_temp))
