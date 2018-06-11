@@ -33,13 +33,15 @@ class XGB :
         self.reg_alpha = 40
 
     def entire_training_process(self):
-        self.preprocess_data()
+        self.preprocess_data_for_trainset()
         self.get_train_data()
         self.training_data()
         self.save_module()
+        
 
     def entire_test_process(self, test_data):
         self.test_data = test_data
+        self.preprocess_data_for_testset()
         self.retrieve_module()
         self._prediction()
 
@@ -48,7 +50,14 @@ class XGB :
         self.train_data = train_data
         print("DONE !")
 
-    def preprocess_data(self):
+    def preprocess_data_for_testset(self):
+        print("I AM PREPROCESSING DATA !")
+        self.dtypes = self.test_data.dtypes
+        self.dtypes = self.dtypes[self.dtypes!='object']
+        self.features = list(set(self.dtypes.index))   
+        print("DONE !") 
+
+    def preprocess_data_for_trainset(self):
         print("I AM PREPROCESSING DATA !")
         self.dtypes = self.train_data.dtypes
         self.dtypes = self.dtypes[self.dtypes!='object']
