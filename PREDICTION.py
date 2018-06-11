@@ -60,4 +60,4 @@ class PREDICT():
  
         for epoch in range(100):
             _, loss_temp = self.sess.run([train, loss], feed_dict = {input_layer: self.IN, target: self.label})
-            print("epoch : {} Loss : ".format(epoch, loss_temp))
+            print("epoch : {} Loss : {}".format(epoch, loss_temp))
