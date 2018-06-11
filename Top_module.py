@@ -1,6 +1,7 @@
 # EXTERN MODULE IMPORT
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 import numpy as np
+import pickle
 
 
 ## MODULE IMPORT
@@ -89,6 +90,12 @@ po5 = po5.reshape(-1,1)
 label = label.reshape(-1,1)
 
 IN = np.column_stack((po1, po2, po3, po4, po5))
+
+with open("x.txt", "wb") as fp:   #Pickling
+    pickle.dump(IN, fp)
+with open("y.txt", "wb") as fp:   #Pickling
+    pickle.dump(label, fp)
+
 #print(IN[:10])
 pd = PREDICTION.PREDICT(IN, label)
 pd.train()
