@@ -55,7 +55,7 @@ class XGB :
         print("I AM PREPROCESSING DATA !")
         with open ('features_module5.txt', 'rb') as fp:
             self.features = pickle.load(fp)
-        #print(type(self.features))
+        print(type(self.features))
         print("DONE !") 
 
     def preprocess_data_for_trainset(self):
@@ -63,7 +63,7 @@ class XGB :
         self.dtypes = self.train_data.dtypes
         self.dtypes = self.dtypes[self.dtypes!='object']
         self.features = list(set(self.dtypes.index)-set(['TARGET']))
-        #print(self.features)
+        print(self.features)
         with open('features_module5.txt', 'wb') as fp:
             pickle.dump(self.features, fp)
         print("DONE !")
