@@ -45,12 +45,12 @@ class PREDICT():
    
         
     def train(self):
-        input1 = tf.placeholder(tf.float32,[None, ])
-        input2 = tf.placeholder(tf.float32,[None, ])
-        input3 = tf.placeholder(tf.float32,[None, ])
-        input4 = tf.placeholder(tf.float32,[None, ])
-        input5 = tf.placeholder(tf.float32,[None, ])
-        target = tf.placeholder(tf.float32,[None,])
+        input1 = tf.placeholder(tf.float32,[None, 1])
+        input2 = tf.placeholder(tf.float32,[None, 1])
+        input3 = tf.placeholder(tf.float32,[None, 1])
+        input4 = tf.placeholder(tf.float32,[None, 1])
+        input5 = tf.placeholder(tf.float32,[None, 1])
+        target = tf.placeholder(tf.float32,[None, 1])
         train_data =tf.stack([input1,input2,input3, input4,input5],axis=-1,name = 'stack') 
         self.W1 = self.weight_variable([5, 12])
         self.b1 = self.bias_variable([12])
