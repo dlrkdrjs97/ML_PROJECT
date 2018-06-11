@@ -10,6 +10,7 @@ import MODULE3
 import MODULE4
 import MODULE5
 import PREDICTION
+import SAVE_MODULE
 
 ## READ DATA SET
 df = pd.read_csv("application_train.csv")
@@ -75,7 +76,7 @@ print(type(pu1))
 print("Train AUC %.4f"%acc_train)
 print("Test AUC %.4f"%acc_test)
 
-
+## Training
 label = df['TARGET']
 label = np.array(list(label))
 '''
@@ -88,8 +89,13 @@ po5 = po5.reshape(-1,1)
 label = label.reshape(-1,1)
 
 IN = np.column_stack((po1, po2, po3, po4, po5))
-print(IN[:10])
+#print(IN[:10])
 pd = PREDICTION.PREDICT(IN, label)
 pd.train()
+IN = np.column_stack((pu1, pu2, pu3, pu4, pu5))
+result = pd.predict(IN)
+#print(result[:10])
 
-result = pd.predict()
+## Storing
+sm = SAVE_MODULE.saveresult(df_test, result)
+sm.entire_process()
