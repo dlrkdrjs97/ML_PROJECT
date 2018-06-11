@@ -44,7 +44,8 @@ class XGB :
         self.test_data = test_data
         self.preprocess_data_for_testset()
         self.retrieve_module()
-        self._prediction()
+        ret_val = self._prediction()
+        return ret_val
 
     def read_data(self, train_data):
         print("I AM READING DATA !")
@@ -104,10 +105,15 @@ class XGB :
     
     def _prediction(self):
         print("I AM PREDICTING DATA !")
+        '''
         self.Y_test = self.test_data[self.features]
         self.results = self.test_data[["SK_ID_CURR"]]
         self.results["TARGET"] = self.model.predict_proba(self.Y_test)[:,1]
-        self.results.to_csv("results_from_modeul4.csv",index=False,columns=self.results.columns)
+        self.results.to_csv("results_from_modeul1.csv",index=False,columns=self.results.columns)
+        '''
+        self.Y_test = self.test_data[self.features]
+        return self.model.predict_proba(self.Y_test)[:,1]
         print("DONE !")
+        
         
    

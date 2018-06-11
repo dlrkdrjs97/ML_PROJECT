@@ -45,19 +45,19 @@ class PREDICT():
         self.b3 = self.bias_variable([1])
         Layer1 = tf.matmul(input_layer, self.W1)+self.b1
         act_L1 = tf.nn.relu(Layer1)
-        act_L1_drop = tf.nn.dropout(act_L1, 0.25)
+        act_L1_drop = tf.nn.dropout(act_L1, 0.15)
         Layer2 = tf.matmul(act_L1_drop, self.W2)+self.b2
         act_L2 = tf.nn.relu(Layer2)
-        act_L2_drop = tf.nn.dropout(act_L2, 0.25)
+        act_L2_drop = tf.nn.dropout(act_L2, 0.23)
         Layer_out = tf.matmul(act_L2_drop, self.W3)+self.b3
         out = tf.sigmoid(Layer_out)
 
         loss = -tf.reduce_sum(target*tf.log(out))
-        optimizer = tf.train.AdamOptimizer(0.001)
+        optimizer = tf.train.AdamOptimizer(0.1)
         train = optimizer.minimize(loss)
         self.sess = tf.Session()
         self.sess.run(tf.global_variables_initializer())
  
-        for epoch in range(100):
+        for epoch in range(10000):
             _, loss_temp = self.sess.run([train, loss], feed_dict = {input_layer: self.IN, target: self.label})
             print("epoch : {} Loss : {}".format(epoch, loss_temp))
