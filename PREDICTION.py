@@ -20,11 +20,9 @@ class PREDICT():
         return tf.Variable(initial)
    
 
-    def predict(self, IN1,IN2,IN3,IN4,IN5):
-        input = tf.placeholder(tf.float32,[None, 5])
-        
-        
-        Layer1 = tf.matmul(train_data, self.W1)+self.b1
+    def predict(self, IN):
+        input_layer = IN
+        Layer1 = tf.matmul(input_layer, self.W1)+self.b1
         act_L1 = tf.nn.relu(Layer1)
         act_L1_drop = tf.nn.dropout(act_L1, 0.25)
         Layer2 = tf.matmul(act_L1_drop, self.W2)+self.b2
@@ -37,20 +35,15 @@ class PREDICT():
    
         
     def train(self):
-        input1 = tf.placeholder(tf.float32,[None, 1])
-        input2 = tf.placeholder(tf.float32,[None, 1])
-        input3 = tf.placeholder(tf.float32,[None, 1])
-        input4 = tf.placeholder(tf.float32,[None, 1])
-        input5 = tf.placeholder(tf.float32,[None, 1])
-        target = tf.placeholder(tf.float32,[None, 1])
-        train_data =tf.stack([input1,input2,input3, input4,input5],axis=-1,name = 'stack') 
+        input_layer = tf.placeholder(dtype = tf.float32, shape = [None, 5])
+        target = tf.placeholder(dtype = tf.float32, shape = [None, 1])
         self.W1 = self.weight_variable([5, 12])
         self.b1 = self.bias_variable([12])
         self.W2 = self.weight_variable([12,4])
         self.b2 = self.bias_variable([4])
         self.W3 = self.weight_variable([4,1])
         self.b3 = self.bias_variable([1])
-        Layer1 = tf.matmul(train_data, self.W1)+self.b1
+        Layer1 = tf.matmul(input_layer, self.W1)+self.b1
         act_L1 = tf.nn.relu(Layer1)
         act_L1_drop = tf.nn.dropout(act_L1, 0.25)
         Layer2 = tf.matmul(act_L1_drop, self.W2)+self.b2
@@ -66,5 +59,5 @@ class PREDICT():
         self.sess.run(tf.global_variables_initializer())
  
         for epoch in range(100):
-            _, loss_temp = self.sess.run([train, loss], feed_dict = {input1: self.IN1,input2: self.IN2, input3:self.IN3, input4:self.IN4, input5:self.IN5, target:self.label})
+            _, loss_temp = self.sess.run([train, loss], feed_dict = {input_layer: IN, target: self.label})
             print("epoch : {} Loss : ".format(epoch, loss_temp))
