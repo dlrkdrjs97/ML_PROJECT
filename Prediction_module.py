@@ -39,7 +39,7 @@ class trainning_prediction:
 
         self.eclf  = VotingClassifier(estimators = [('lr', self.clf1), ('rf', self.clf2), ('gnb', self.clf3)], voting = 'hard')
         for clf , label in zip([self.clf1, self.clf2, self.clf3, self.eclf],['Logistic Regression', 'Random Forest', 'naive Bayes', 'Ensemble']):
-            scores = cross_val_score(clf, self.X, self.Y, cv=5, scoring='accuracy')
+            scores = cross_val_score(clf, self.train_X, self.train_Y, cv=5, scoring='accuracy')
             print("Accuracy: %0.2f (+/- %0.2f) [%s]" % (scores.mean(), scores.std(), label))
 
     def save_model(self):
