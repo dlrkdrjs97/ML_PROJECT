@@ -7,9 +7,10 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix,classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
-np.set_printoptions(threshold=np.nan)
 import numpy as np
 import pickle
+
+np.set_printoptions(threshold=np.nan)
 
 class trainning_prediction:
     def __init__(self, train_data, test_data):
