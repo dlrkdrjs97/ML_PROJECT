@@ -36,8 +36,8 @@ class trainning_prediction:
         self.train_Y = np.array(self.train_Y)
         #self.train_Y = self.train_Y.reshape(-1,1)
 
-        print(self.train_X.shape())
-        print(self.train_Y.shape())
+        print(self.train_X[:10])
+        print(self.train_Y[:10])
         
     def training_data(self):
         print("ENTIRE_TRAINING_PROCESS - training_data")
