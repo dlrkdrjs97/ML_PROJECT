@@ -26,7 +26,7 @@ class trainning_prediction:
         print("ENTIRE_TRAINING_PROCESS - preprocessing_data")
         self.dtypes = self.train_data.dtypes
         self.dtypes = self.dtypes[self.dtypes != object]
-        self.features = list(set(self.dtypes.index)-set(['TARGET']))
+        self.features = list(set(self.dtypes.index)-set(['TARGET'])-set(['SK_ID_CURR']))
         self.train_X = self.train_data[self.features]
         self.train_X = self.train_X.fillna(0)
         self.train_X = self.train_X.values.tolist()
