@@ -3,6 +3,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import VotingClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import confusion_matrix,classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import roc_auc_score
+np.set_printoptions(threshold=np.nan)
 import numpy as np
 import pickle
 
@@ -10,9 +15,12 @@ class trainning_prediction:
     def __init__(self, train_data, test_data):
         self.train_data = train_data
         self.test_data = test_data
+        self.test_size = 0.2
+        self.random_state = 42 
     
     def entire_training_process(self):
         print("----------ENTIRE_TRAINING_PROCESS----------")
+        self.extracting_features()
         self.preprocessing_data()
         self.training_data()
         self.save_model()
@@ -22,22 +30,19 @@ class trainning_prediction:
         self.retrieve_model()
         #self.predicting_data()
 
-    def preprocessing_data(self):
-        print("ENTIRE_TRAINING_PROCESS - preprocessing_data")
+    def extracting_features(self):
+        print("ENTIRE_TRAINING_PROCESS - extracting_features")
         self.dtypes = self.train_data.dtypes
         self.dtypes = self.dtypes[self.dtypes != object]
         self.features = list(set(self.dtypes.index)-set(['TARGET'])-set(['SK_ID_CURR']))
-        self.train_X = self.train_data[self.features]
-        self.train_X = self.train_X.fillna(0)
-        self.train_X = self.train_X.values.tolist()
-        self.train_X = np.array(self.train_X)
-        self.train_Y = self.train_data['TARGET']
-        self.train_Y = self.train_Y.values.tolist()
-        self.train_Y = np.array(self.train_Y)
-        #self.train_Y = self.train_Y.reshape(-1,1)
+        with open('features.txt', 'wb') as fp:
+            pickle.dump(self.features, fp)
 
-        print(self.train_X[:100])
-        print(self.train_Y[:100])
+    def preprocessing_data(self):
+        self.X = self.train_data[self.features]
+        self.Y = self.train_data['TARGET']
+        self.X_train, self.X_test, self.Y_train, self.Y_test = train_test_split(self.X, self.Y, test_size=self.test_size, random_state=self.random_state)
+
         
     def training_data(self):
         print("ENTIRE_TRAINING_PROCESS - training_data")
@@ -47,7 +52,7 @@ class trainning_prediction:
 
         self.eclf  = VotingClassifier(estimators = [('lr', self.clf1), ('rf', self.clf2), ('gnb', self.clf3)], voting = 'hard')
         for clf , label in zip([self.clf1, self.clf2, self.clf3, self.eclf],['Logistic Regression', 'Random Forest', 'naive Bayes', 'Ensemble']):
-            scores = cross_val_score(clf, self.train_X, self.train_Y, cv=5, scoring='accuracy')
+            scores = cross_val_score(clf, self.X_train, self.Y_train, cv=5, scoring='accuracy')
             print("Accuracy: %0.5f (+/- %0.5f) [%s]" % (scores.mean(), scores.std(), label))
 
     def save_model(self):
