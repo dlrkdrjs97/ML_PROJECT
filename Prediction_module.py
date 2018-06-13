@@ -30,7 +30,7 @@ class trainning_prediction:
         self.train_Y = self.train_data['TARGET']
         self.train_Y = self.train_Y.values.tolist()
         self.train_Y = np.array(self.train_Y)
-        self.train_Y = self.train_Y.reshape(-1,1)
+        #self.train_Y = self.train_Y.reshape(-1,1)
         
     def training_data(self):
         self.clf1 = LogisticRegression(random_state = 1)
