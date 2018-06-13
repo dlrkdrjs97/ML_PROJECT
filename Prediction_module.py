@@ -12,13 +12,13 @@ class trainning_prediction:
         self.test_data = test_data
     
     def entire_training_process(self):
-        print("ENTIRE_TRAINING_PROCESS")
+        print("----------ENTIRE_TRAINING_PROCESS----------")
         self.preprocessing_data()
         self.training_data()
         self.save_model()
 
     def entire_testing_process(self):
-        print("ENTIRE_TESTING_PROCESS")
+        print("----------ENTIRE_TESTING_PROCESS----------")
         self.retrieve_model()
         #self.predicting_data()
 
@@ -36,8 +36,8 @@ class trainning_prediction:
         self.train_Y = np.array(self.train_Y)
         #self.train_Y = self.train_Y.reshape(-1,1)
 
-        print(self.train_X[:10])
-        print(self.train_Y[:10])
+        print(self.train_X[:100])
+        print(self.train_Y[:100])
         
     def training_data(self):
         print("ENTIRE_TRAINING_PROCESS - training_data")
