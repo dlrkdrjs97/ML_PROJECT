@@ -12,15 +12,18 @@ class trainning_prediction:
         self.test_data = test_data
     
     def entire_training_process(self):
+        print("ENTIRE_TRAINING_PROCESS")
         self.preprocessing_data()
         self.training_data()
         self.save_model()
 
     def entire_testing_process(self):
+        print("ENTIRE_TESTING_PROCESS")
         self.retrieve_model()
         #self.predicting_data()
 
     def preprocessing_data(self):
+        print("ENTIRE_TRAINING_PROCESS - preprocessing_data")
         self.dtypes = self.train_data.dtypes
         self.dtypes = self.dtypes[self.dtypes != object]
         self.features = list(set(self.dtypes.index)-set(['TARGET']))
@@ -31,8 +34,12 @@ class trainning_prediction:
         self.train_Y = self.train_Y.values.tolist()
         self.train_Y = np.array(self.train_Y)
         #self.train_Y = self.train_Y.reshape(-1,1)
+
+        print(self.train_X.shape())
+        print(self.train_Y.shape())
         
     def training_data(self):
+        print("ENTIRE_TRAINING_PROCESS - training_data")
         self.clf1 = LogisticRegression(random_state = 1)
         self.clf2 = RandomForestClassifier(random_state = 1)
         self.clf3 = GaussianNB()
@@ -40,9 +47,10 @@ class trainning_prediction:
         self.eclf  = VotingClassifier(estimators = [('lr', self.clf1), ('rf', self.clf2), ('gnb', self.clf3)], voting = 'hard')
         for clf , label in zip([self.clf1, self.clf2, self.clf3, self.eclf],['Logistic Regression', 'Random Forest', 'naive Bayes', 'Ensemble']):
             scores = cross_val_score(clf, self.train_X, self.train_Y, cv=5, scoring='accuracy')
-            print("Accuracy: %0.2f (+/- %0.2f) [%s]" % (scores.mean(), scores.std(), label))
+            print("Accuracy: %0.5f (+/- %0.5f) [%s]" % (scores.mean(), scores.std(), label))
 
     def save_model(self):
+        print("ENTIRE_TRAINING_PROCESS - save_model")
         pickle.dump(self.clf1, open("clf1.dat", "wb"))
         pickle.dump(self.clf2, open("clf2.dat", "wb"))
         pickle.dump(self.clf3, open("clf3.dat", "wb"))
