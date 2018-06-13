@@ -30,6 +30,7 @@ class trainning_prediction:
         self.train_X = self.train_data[self.features]
         self.train_X = self.train_X.fillna(0)
         self.train_X = self.train_X.values.tolist()
+        self.train_X = np.array(self.train_X)
         self.train_Y = self.train_data['TARGET']
         self.train_Y = self.train_Y.values.tolist()
         self.train_Y = np.array(self.train_Y)
