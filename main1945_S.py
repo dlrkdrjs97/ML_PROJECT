@@ -225,7 +225,7 @@ merged_df.to_csv('processed_input_data.csv', index=False)
 '''
 # In[21]:
 
-
+'''
 merged_df = pd.read_csv('processed_input_data.csv')
 
 
@@ -240,7 +240,8 @@ merged_df.drop(columns=meta_cols, inplace=True)
 
 # In[23]:
 
-
+'''
+merged_df = pd.read_csv('processed_input_data_haha.csv')
 # Process the data set.
 merged_df, categorical_feats, encoder_dict = process_dataframe(input_df=merged_df)
 
@@ -248,7 +249,7 @@ merged_df, categorical_feats, encoder_dict = process_dataframe(input_df=merged_d
 # In[24]:
 
 
-merged_df.to_csv('processed_input_data_haha.csv', index=False)
+#merged_df.to_csv('processed_input_data_haha.csv', index=False)
 
 
 # In[25]:
