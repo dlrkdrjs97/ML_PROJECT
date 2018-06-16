@@ -225,7 +225,7 @@ cb_params = {
 xg = XgbWrapper(seed=SEED, params=xgb_params)
 et = SklearnWrapper(clf=ExtraTreesClassifier, seed=SEED, params=et_params)
 rf = SklearnWrapper(clf=RandomForestClassifier, seed=SEED, params=rf_params)
-cb = SklearnWrapper(clf=AdaBoostClassifier, seed=SEED, params=cb_params)
+cb = SklearnWrapper(clf=GradientBoostingClassifier, seed=SEED, params=cb_params)
 
 print("xg..")
 xg_oof_train, xg_oof_test = get_oof_xgb(xg)
