@@ -6,6 +6,7 @@
 ## IMPORT EXTERN MODULE
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import Labelencoder
 
 
 class preprocess:
@@ -88,11 +89,11 @@ class preprocess:
 
         # Average the rest of the previous app data
         for agg_method in ['mean', 'max', 'min']:
-            merged_df = agg_and_merge(merged_df, prev_app_df, agg_method, 'PRV')
+            merged_df = self.agg_and_merge(merged_df, prev_app_df, agg_method, 'PRV')
         print('Shape after merging with previous apps num data = {}'.format(merged_df.shape))
 
         # Previous app categorical features
-        prev_app_df, cat_feats, _ = process_dataframe(prev_app_df)
+        prev_app_df, cat_feats, _ = self.process_dataframe(prev_app_df)
         prev_apps_cat_avg = prev_app_df[cat_feats + ['SK_ID_CURR']].groupby('SK_ID_CURR')                                 .agg({k: lambda x: str(x.mode().iloc[0]) for k in cat_feats})
         merged_df = merged_df.merge(prev_apps_cat_avg, left_on='SK_ID_CURR', right_index=True,
                                 how='left', suffixes=['', '_BAVG'])
@@ -104,7 +105,7 @@ class preprocess:
         merged_df = merged_df.merge(credit_card_avgs, left_on='SK_ID_CURR', right_index=True,
                                     how='left', suffixes=['', '_CC_WAVG'])
         for agg_method in ['mean', 'max', 'min']:
-            merged_df = agg_and_merge(merged_df, credit_card_avgs, agg_method, 'CC')
+            merged_df = self.agg_and_merge(merged_df, credit_card_avgs, agg_method, 'CC')
         print('Shape after merging with previous apps num data = {}'.format(merged_df.shape))
 
         # Credit card data - categorical features
@@ -116,7 +117,7 @@ class preprocess:
 
         # Credit bureau data - numerical features
         for agg_method in ['mean', 'max', 'min']:
-            merged_df = agg_and_merge(merged_df, bureau_df, agg_method, 'B')
+            merged_df = self.agg_and_merge(merged_df, bureau_df, agg_method, 'B')
         print('Shape after merging with credit bureau data = {}'.format(merged_df.shape))
 
         # Bureau balance data
@@ -136,7 +137,7 @@ class preprocess:
 
         # Unweighted aggregations of numeric features
         for agg_method in ['mean', 'max', 'min']:
-            merged_df = agg_and_merge(merged_df, pos_cash_df, agg_method, 'PC')
+            merged_df = self.agg_and_merge(merged_df, pos_cash_df, agg_method, 'PC')
 
         # Pos cash data data - categorical features
         most_recent_index = pos_cash_df.groupby('SK_ID_CURR')['MONTHS_BALANCE'].idxmax()
@@ -147,7 +148,7 @@ class preprocess:
 
         # Installments data
         for agg_method in ['mean', 'max', 'min']:
-            merged_df = agg_and_merge(merged_df, install_df, agg_method, 'I')    
+            merged_df = self.agg_and_merge(merged_df, install_df, agg_method, 'I')    
         print('Shape after merging with installments data = {}'.format(merged_df.shape))
 
         # Add more value counts
