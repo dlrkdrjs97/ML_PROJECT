@@ -178,7 +178,7 @@ def get_oof_xgb(clf):
     oof_test[:] = oof_test_skf.mean(axis=0)
     return oof_train.reshape(-1, 1), oof_test.reshape(-1, 1)
     
-    et_params = {
+et_params = {
     'n_jobs': 16,
     'n_estimators': 100,
     'max_features': 0.5,
