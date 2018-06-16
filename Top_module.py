@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 ## LOAD DATA
 from Get_data_module import getdata
 
-input_dir = os.path.join(os.pardir, 'project2')
-getdata.get_dir(input_dir)
+input_dir = os.path.join(os.pardir, 'ML_PROJECT')
+getdata.get_dir(dir = input_dir)
 app_train_df = getdata.get_apptrain()
 app_test_df = getdata.get_apptest()
 bureau_df = getdata.get_bureau()
