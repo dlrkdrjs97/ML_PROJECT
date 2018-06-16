@@ -6,7 +6,7 @@
 ## IMPORT EXTERN MODULE
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import Labelencoder
+from sklearn.preprocessing import LabelEncoder
 
 
 class preprocess:
