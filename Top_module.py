@@ -25,16 +25,15 @@ print('Data loaded.\nMain application training data set shape = {}'.format(app_t
 print('Main application test data set shape = {}'.format(app_test_df.shape))
 print('Positive target proportion = {:.2f}'.format(app_train_df['TARGET'].mean()))
 
-
+## DONE !!
 
 ## PREPROCESS DATA
 
 from Preprocessing_module import preprocess
+pp = preprocess(app_train_df, app_test_df, bureau_df, bureau_balance_df, credit_card_df, pos_cash_df, prev_app_df, install_df)
+train_df, test_df, categorical_feats, len_train, meta_df, merged_df = pp.entire_process()
 
-preprocess.setdata(app_train_df, app_test_df, bureau_df, bureau_balance_df, credit_card_df, pos_cash_df, prev_app_df, install_df)
-train_df, test_df, categorical_feats, len_train, meta_df, merged_df = preprocess.entire_process()
-
-
+print(train_df)
 
 
 ## FEATURE EXTRACTION

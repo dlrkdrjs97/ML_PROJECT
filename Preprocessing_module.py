@@ -8,7 +8,8 @@ import pandas as pd
 
 
 class preprocess:
-    def setdata(self, ap_tr, ap_te, br, br_bal, credit, pos, prev, install):
+
+    def __init__(self, ap_tr, ap_te, br, br_bal, credit, pos, prev, install):
         self.app_train_df = ap_tr
         self.app_test_df = ap_te
         self.bureau_df = br
