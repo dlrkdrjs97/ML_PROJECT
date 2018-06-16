@@ -8,14 +8,14 @@ import joblib
 from sklearn.preprocessing import normalize
 import pickle
 
-from sklearn.model_selection import train_test_split
-
 import seaborn as sns
 from xgboost import XGBClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix,classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
+
+
 np.set_printoptions(threshold=np.nan)
 
 class XGB :
@@ -82,7 +82,7 @@ class XGB :
         self.model = XGBClassifier(max_depth=self.max_depth, learning_rate=self.learning_rate, n_estimators=self.n_estimators, n_jobs=self.n_jobs, scale_pos_weight=self.scale_pos_weight ,missing=self.missing ,gamma=self.gamma, eval_metric=self.eval_metric ,reg_lambda=self.reg_lambda,reg_alpha=self.reg_alpha)
         self.model.fit(self.X_train,self.y_train)
         print("DONE !")
-        
+
     def return_model(self):
         return self.model
 

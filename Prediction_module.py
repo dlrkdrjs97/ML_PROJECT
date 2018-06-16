@@ -46,15 +46,17 @@ class trainning_prediction:
 
         
     def training_data(self):
-        print("ENTIRE_TRAINING_PROCESS - training_data")
-        self.clf1 = LogisticRegression(random_state = 1)
-        self.clf2 = RandomForestClassifier(random_state = 1)
-        self.clf3 = GaussianNB()
+        ## # Train Model
+        # classifier from xgboost
+        self.clf1 = AdaBoostClassifier(n_estimators=500)
+        self.clf2 = ExtraTreesClassifier(n_estimators=500, n_jobs=-1, criterion='gini',max_depth=5)
+        self.clf3 = xgb.XGBClassifier(n_estimators=500, nthread=-1, max_depth = 5, seed=1729)
+        self.clf4 = GradientBoostingClassifier(n_estimators=500)
+        self.eclf = VotingClassifier(estimators=[('ab', self.clf1), ('etc', self.clf2), ('xgb', self.clf3),('gbc', self.clf4)], voting='soft')
+        self.eclf = self.eclf.fit(self.X_train, self.Y_train)
 
-        self.eclf  = VotingClassifier(estimators = [('lr', self.clf1), ('rf', self.clf2), ('gnb', self.clf3)], voting = 'hard')
-        for clf , label in zip([self.clf1, self.clf2, self.clf3, self.eclf],['Logistic Regression', 'Random Forest', 'naive Bayes', 'Ensemble']):
-            scores = cross_val_score(clf, self.X_train, self.Y_train, cv=5, scoring='accuracy')
-            print("Accuracy: %0.5f (+/- %0.5f) [%s]" % (scores.mean(), scores.std(), label))
+        # calculate the auc score
+        print("Roc AUC: ", roc_auc_score(self.Y_test, self.eclf.predict_proba(self.X_test)[:,1], average='macro')) 
 
     def save_model(self):
         print("ENTIRE_TRAINING_PROCESS - save_model")
