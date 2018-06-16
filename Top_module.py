@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
-#from catboost import CatBoostClassifier
+from catboost import CatBoostClassifier
 import xgboost as xgb
 from sklearn.cross_validation import KFold
 from sklearn.ensemble import ExtraTreesClassifier
