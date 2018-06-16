@@ -14,7 +14,7 @@ import os
 sample_size = None
 
 class getdata:
-    def get_dir(self, dir):
+    def __init__(self, dir):
         self.dir = dir
     def get_apptrain(self):
         app_train = pd.read_csv(os.path.join(self.dir, 'application_train.csv'), nrows=sample_size)
